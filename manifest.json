@@ -3,7 +3,7 @@
   "name": "Blog to Podcast Converter",
   "description": "Convert blog posts into downloadable podcasts in your desired language.",
   "version": "1.0",
-  "permissions": ["activeTab", "scripting", "downloads"],
+  "permissions": ["activeTab", "scripting", "downloads", "http://localhost:3000/*"],
   "action": {
     "default_popup": "index.html",
     "default_icon": "icon.png"

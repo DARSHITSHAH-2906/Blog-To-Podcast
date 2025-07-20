@@ -32,7 +32,6 @@ function App() {
   const [language, setLanguage] = useState('en');
   const [loading, setLoading] = useState(false);
   const [conversionType, setConversionType] = useState('Podcast');
-  // const [aiModel, setAiModel] = useState('gpt-3.5-turbo');
   const [processedtext, setProcessedText] = useState('The processed conversion output will appear here...');
   const [guestVoice, setGuestVoice] = useState('hi-IN-rahul');
   const [hostvoice, setHostVoice] = useState('hi-IN-kabir');
@@ -69,10 +68,9 @@ function App() {
     setText(text.replaceAll("/\n+/g"), "\n")
 
     setLoading(true);
-    axios.post("http://localhost:3000/chat/openai",
+    axios.post("http://localhost:3000/chat",
       {
         prompt: prompt,
-        // model: aiModel,
       },
       {
         headers: {
@@ -105,14 +103,16 @@ function App() {
 
     Setgeneratingaudio(true);
 
-    axios.post("http://localhost:3000/genrate", data, {
+    axios.post("http://localhost:3000/generate", data, {
       headers: {
         'Content-Type': 'application/json',
       }
     })
       .then((response) => {
         Setgeneratingaudio(false);
-        setaudio_url(response.data.audioUrl);
+        const audioUrl = response.data.audioUrl;
+        console.log("Generated audio URL:", audioUrl);
+        setaudio_url(audioUrl);
       })
       .catch((error) => {
         Setgeneratingaudio(false);
@@ -216,13 +216,13 @@ function App() {
           className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-2 rounded-lg mt-3 transition duration-300"
           onClick={generateAndConvert}
         >
-          🚀 Generate & Convert
+          {audio_url || "🚀 Generate & Convert" }
         </button>
       )}
 
       {/* Audio Player */}
       {audio_url && (
-        <audio src={audio_url} option></audio>
+        <audio src={audio_url} controls />
       )}
     </div>
 
