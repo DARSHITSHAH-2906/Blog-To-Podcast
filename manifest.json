@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Blog to Podcast Converter",
+  "description": "Convert blog posts into downloadable podcasts in your desired language.",
+  "version": "1.0",
+  "permissions": ["activeTab", "scripting", "downloads"],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
